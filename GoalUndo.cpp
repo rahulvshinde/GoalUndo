@@ -1,5 +1,6 @@
 #include "GoalUndo.h"
 #include <string>
+#include <iostream>
 
 /* undoGoal
    When there are existing goals, it removes the most recently added
@@ -53,7 +54,11 @@ void GoalUndo::undoOperation(std::string undoOp)
 				break; //only remove first LIFO match
 			}
 		}
-	}
+                if( goals.top().operations.empty() )
+                {
+                    undoGoal();
+                }	
+        }
 }
 
 /* getGoal
@@ -93,6 +98,8 @@ std::string GoalUndo::getOperations()
 		}
 		return allOps;
 	}
+
+	std::cout<<"Do nothing.\n";
 }
 
 /* addOperation(newGoal,newOp)
